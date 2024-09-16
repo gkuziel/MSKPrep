@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MSKPrep</string>
+    <string name="title_activity_main_comp">MainCompActivity</string>
 </resources>

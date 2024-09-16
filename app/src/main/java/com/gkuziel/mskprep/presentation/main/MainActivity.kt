@@ -1,8 +1,7 @@
-package com.gkuziel.mskprep
+package com.gkuziel.mskprep.presentation.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -10,7 +9,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gkuziel.mskprep.databinding.ActivityMainBinding
-import com.gkuziel.mskprep.presentation.EventAdapter
+import com.gkuziel.mskprep.presentation.details.DetailsActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -21,14 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     private val eventAdapter by lazy {
         EventAdapter {
-
-
-            viewModel.modifyUser(
-                it
-//                it.copy(
-//                    description = "M ${it.description}"
-//                )
-            )
+            DetailsActivity.start(this, it.id)
         }
     }
 
@@ -40,20 +32,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         initViews()
 
-        viewModel.loadUsers(resources)
+        viewModel.loadUsers()
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-
                 viewModel.events.collect { eventsUi ->
-                    Log.d("dsfsd", "fdssd")
-                    eventAdapter.setItems(eventsUi)
-//                    eventAdapter.setItems(EventtMapper().execute(eventsUi))
+                    eventAdapter.setItems(eventsUi.events)
                 }
             }
         }
-
-
     }
 
     private fun initViews() {

@@ -1,4 +1,4 @@
-package com.gkuziel.mskprep.presentation
+package com.gkuziel.mskprep.presentation.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,11 +7,10 @@ import com.gkuziel.mskprep.databinding.ItemEventBinding
 
 
 class EventAdapter(
-    private  var items: List<EventUi> = emptyList(),
+    private var items: List<EventUi> = emptyList(),
     private val onItemClick: (EventUi) -> Unit
 ) : RecyclerView.Adapter<EventAdapter.ItemViewHolder>() {
 
-//    private lateinit var items: List<EventUi>
 
     fun setItems(items: List<EventUi>) {
         this.items = items
@@ -41,11 +40,11 @@ class EventAdapter(
             tvDescription.text = item.description
             tvSynchronized.text = item.synchronized.toString()
             tvUpdated.text = item.updated.toString()
-            tvValidity.text = item.validity.toString()
+            tvValidity.text = item.timeLeftToDecay.toString()
             tvResults.text = item.results.size.toString()
             setFontColor(this, item.fontColor)
-            if (item.clickable) {
-                root.setOnClickListener {
+            root.setOnClickListener {
+                if (item.clickable) {
                     onItemClick.invoke(item)
                 }
             }

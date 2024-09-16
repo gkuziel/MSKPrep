@@ -1,13 +1,13 @@
-package com.gkuziel.mskprep.presentation
+package com.gkuziel.mskprep.domain
 
 import com.google.gson.annotations.SerializedName
 
 
-class ResultUi(
+data class Result(
     val id: String,
+    @SerializedName("desc")
     val description: String,
-//    val type: Type,
     val type: String,
-    val value: Int?
+    var value: Int?
 )
 

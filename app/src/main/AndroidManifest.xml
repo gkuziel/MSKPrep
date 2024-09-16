@@ -14,14 +14,27 @@
         android:theme="@style/Theme.MSKPrep"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".compose.MainCompActivity"
+            android:exported="true"
+            android:label="@string/title_activity_main_comp"
+            android:theme="@style/Theme.MSKPrep">
+
+        </activity>
+        <activity
+            android:name=".presentation.main.MainActivity"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+
         </activity>
+        <activity
+            android:name=".presentation.details.DetailsActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
