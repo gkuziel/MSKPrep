@@ -1,5 +1,7 @@
 package com.gkuziel.mskprep.compose
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -26,6 +28,16 @@ class MainCompActivity : ComponentActivity() {
                     MainScreen()
                 }
             }
+        }
+    }
+
+    companion object {
+        fun start(context: Context) {
+            val intent = Intent(
+                context,
+                MainCompActivity::class.java
+            )
+            context.startActivity(intent)
         }
     }
 }

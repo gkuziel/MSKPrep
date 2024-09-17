@@ -6,16 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".presentation.main.MainActivity">
 
+
     <Button
-        android:id="@+id/btn_reload"
+        android:id="@+id/btn_goto_compose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="reload (TBD)"
+        android:text="go to compose"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_events"
@@ -25,7 +25,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_reload"
+        app:layout_constraintTop_toBottomOf="@id/btn_goto_compose"
         tools:itemCount="2"
         tools:listitem="@layout/item_event" />
 

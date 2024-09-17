@@ -8,6 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.gkuziel.mskprep.compose.MainCompActivity
 import com.gkuziel.mskprep.databinding.ActivityMainBinding
 import com.gkuziel.mskprep.presentation.details.DetailsActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,6 +52,9 @@ class MainActivity : AppCompatActivity() {
                 RecyclerView.VERTICAL,
                 false
             )
+            btnGotoCompose.setOnClickListener {
+                MainCompActivity.start(this@MainActivity)
+            }
         }
     }
 
