@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.mainUIState.collect { eventsUi ->
+                viewModel.mainState.collect { eventsUi ->
                     eventAdapter.setItems(eventsUi.events)
                 }
             }

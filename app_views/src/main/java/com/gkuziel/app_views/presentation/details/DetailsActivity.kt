@@ -44,7 +44,7 @@ class DetailsActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.eventDetailsUIState.collect { detailsUIState ->
+                viewModel.eventDetailsState.collect { detailsUIState ->
                     detailsUIState?.let {
                         resultAdapter.setItems(it.results)
                         updatedCountdownLabel()
@@ -76,13 +76,13 @@ class DetailsActivity : AppCompatActivity() {
 
     private fun updatedCountdownLabel() {
         binding.tvDecaysIn.text = if (isClickable()) {
-            "Decays in: " + viewModel.eventDetailsUIState.value?.timeLeftToDecay.toString()
+            "Decays in: " + viewModel.eventDetailsState.value?.timeLeftToDecay.toString()
         } else {
             "Decayed - read only"
         }
     }
 
-    private fun isClickable() = viewModel.eventDetailsUIState.value?.editable ?: false
+    private fun isClickable() = viewModel.eventDetailsState.value?.editable ?: false
 
     private fun extractIDFromIntent() = intent.extras?.getString(ID_EXTRA) ?: ""
 

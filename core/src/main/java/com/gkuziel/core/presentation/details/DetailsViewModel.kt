@@ -26,7 +26,7 @@ class DetailsViewModel @Inject constructor(
 
     private val eventId = MutableStateFlow<String?>(null)
 
-    val eventDetailsUIState: StateFlow<DetailsStateUI?> = eventId
+    val eventDetailsState: StateFlow<DetailsStateUI?> = eventId
         .filterNotNull()
         .flatMapLatest { id ->
             getCachedEventByID.execute(id)

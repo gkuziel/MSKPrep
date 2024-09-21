@@ -1,6 +1,5 @@
 package com.gkuziel.app_compose.presentation.details
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -24,7 +23,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.gkuziel.core.presentation.details.DetailsStateUI
 import com.gkuziel.core.presentation.details.DetailsViewModel
-import java.util.UUID
 
 
 @Composable
@@ -35,7 +33,7 @@ fun DetailsScreen(
     LaunchedEffect(Unit) {
         viewModel.setEventId(eventId)
     }
-    val uiSate = viewModel.eventDetailsUIState.collectAsState()
+    val uiSate = viewModel.eventDetailsState.collectAsState()
 
     Column(
         modifier = Modifier
