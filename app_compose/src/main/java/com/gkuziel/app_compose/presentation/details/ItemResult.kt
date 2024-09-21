@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.gkuziel.app_compose.presentation.main.LabeledText
+import com.gkuziel.app_compose.presentation.common.LabeledText
 import com.gkuziel.core.presentation.details.ResultUi
 
 @Composable

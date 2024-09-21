@@ -33,7 +33,6 @@ class EventMapper @Inject constructor() {
                     }.toMutableList(),
                 )
             },
-//            events.check
             Util.check
         )
     }

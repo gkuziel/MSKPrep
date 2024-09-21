@@ -1,6 +1,5 @@
 package com.gkuziel.core.di
 
-import com.gkuziel.core.Test
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,9 +10,5 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object CoreModule {
 
-    @Singleton
-    @Provides
-    fun provideTest(): Test {
-        return Test(4)
-    }
+
 }

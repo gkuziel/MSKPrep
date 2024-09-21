@@ -4,8 +4,6 @@ package com.gkuziel.core.presentation.main
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gkuziel.core.Test
-import com.gkuziel.core.presentation.main.UIState
 import com.gkuziel.core.domain.usecase.GetCachedEvents
 import com.gkuziel.core.domain.usecase.LoadUsers
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,7 +18,6 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val getCachedEvents: GetCachedEvents,
     private val loadUsers: LoadUsers,
-    private val test: Test
 ) : ViewModel() {
 
     val events: StateFlow<UIState> =
@@ -33,7 +30,6 @@ class MainViewModel @Inject constructor(
 
     fun loadUsers() {
         viewModelScope.launch {
-            Log.d("sffsd", "ttrw")
             loadUsers.execute()
         }
     }

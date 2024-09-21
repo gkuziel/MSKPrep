@@ -58,7 +58,7 @@ fun DetailsScreen(
         ) {
             onItemClicked(
                 viewModel,
-                uiSate.value
+                it
             )
         }
     }
@@ -66,10 +66,10 @@ fun DetailsScreen(
 
 private fun onItemClicked(
     viewModel: DetailsViewModel,
-    uiSate: DetailsUIState
+    resultId: String
 ) {
     viewModel.setResultValue(
-        uiSate.event?.id ?: "",
+        resultId,
         (0..100).random()
     )
 }

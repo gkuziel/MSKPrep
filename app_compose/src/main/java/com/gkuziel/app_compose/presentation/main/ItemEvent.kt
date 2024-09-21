@@ -3,17 +3,15 @@ package com.gkuziel.app_compose.presentation.main
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.gkuziel.app_compose.presentation.common.LabeledText
 import com.gkuziel.core.presentation.details.ResultUi
 import com.gkuziel.core.presentation.main.EventUi
+import android.graphics.Color.*
 
 @Composable
 fun ItemEvent(
@@ -43,15 +41,18 @@ fun ItemEvent(
             ) {
                 LabeledText(
                     label = "id:",
+                    valueColor = eventUi.fontColor,
                     value = eventUi.id
                 )
                 LabeledText(
                     label = "desc:",
                     value = eventUi.description,
+                    valueColor = eventUi.fontColor,
                     topPadding = 8.dp
                 )
                 LabeledText(
                     label = "sync:",
+                    valueColor = eventUi.fontColor,
                     value = eventUi.synchronized.toString(),
                     topPadding = 8.dp
                 )
@@ -64,15 +65,18 @@ fun ItemEvent(
             ) {
                 LabeledText(
                     label = "updated:",
+                    valueColor = eventUi.fontColor,
                     value = eventUi.updated.toString()
                 )
                 LabeledText(
                     label = "decays in:",
+                    valueColor = eventUi.fontColor,
                     value = eventUi.timeLeftToDecay.toString(),
                     topPadding = 8.dp
                 )
                 LabeledText(
                     label = "#results:",
+                    valueColor = eventUi.fontColor,
                     value = eventUi.results.size.toString(),
                     topPadding = 8.dp
                 )
@@ -81,41 +85,13 @@ fun ItemEvent(
     }
 }
 
-@Composable
-fun LabeledText(
-    label: String,
-    value: String,
-    topPadding: Dp = 0.dp
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = topPadding),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(
-            text = label,
-            fontSize = 14.sp,
-            modifier = Modifier.weight(0.4f)
-        )
-        Spacer(
-            modifier = Modifier.width(8.dp)
-        )
-        Text(
-            text = value,
-            fontSize = 14.sp,
-            modifier = Modifier.weight(0.6f)
-        )
-    }
-}
 
 @Preview(showBackground = true)
 @Composable
 fun PreviewItemLayout() {
     ItemEvent(
         EventUi(
-            android.graphics.Color.RED,
+            GREEN,
             false,
             "id",
             "describtion",
