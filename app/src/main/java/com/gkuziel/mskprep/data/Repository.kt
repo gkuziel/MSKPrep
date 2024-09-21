@@ -1,10 +1,8 @@
 package com.gkuziel.mskprep.data
 
+import android.util.Log
 import com.gkuziel.mskprep.EventMapper
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -12,17 +10,31 @@ class Repository @Inject constructor(
     private val eventCache: EventCache,
     private val fakeRemoteRepository: FakeRemoteRepository,
     private val eventMapper: EventMapper,
-    private val timer: Timer
+    private val dynamicUpdate: DynamicUpdate
 ) {
     suspend fun loadUsers() {
-        fakeRemoteRepository.getEventsFlow().map {
-            it
-        }.collect {
-            eventCache.setList(
+        fakeRemoteRepository.getEventsFlow()
+            .map {
                 eventMapper.execute(it)
-            )
-            timer.get().collect()
-        }
+            }
+            .collect {
+                eventCache.setList(
+                    it
+                )
+                // not here! app?
+                dynamicUpdate.get {
+                    findMaximalTimeToDecay()
+                }.collect {
+                    eventCache.tick()
+                    Log.d("sfsfds", "tick")
+                }
+            }
+    }
+
+    private fun findMaximalTimeToDecay(): Int {
+        return getCachedEvents().value.events.maxByOrNull {
+            it.timeLeftToDecay ?: 0
+        }?.timeLeftToDecay ?: 0
     }
 
     fun getCachedEvents() = eventCache.cacheFlow

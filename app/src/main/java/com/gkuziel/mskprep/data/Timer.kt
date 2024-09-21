@@ -5,27 +5,22 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class Timer @Inject constructor(
-    private val eventCache: EventCache,
-) {
+class Timer @Inject constructor() {
 
-    fun get(): Flow<Void> {
+    fun get(
+        timerCutOff: () -> Int
+    ): Flow<Int> {
         return flow {
             while (true) {
-                val max = findMaxRemainingTime()
+                val cutOffTime = timerCutOff()
                 delay(1000)
-                eventCache.tick()
-                if (max == 0) {
+                emit(cutOffTime)
+                if (cutOffTime == 0) {
                     break
                 }
             }
         }
     }
 
-    private fun findMaxRemainingTime() =
-        getCachedEvents().value.events.maxByOrNull { it.timeLeftToDecay ?: 0 }?.timeLeftToDecay
-            ?: 0
-
-    private fun getCachedEvents() = eventCache.cacheFlow
 
 }

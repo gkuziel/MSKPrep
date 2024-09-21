@@ -1,6 +1,7 @@
 package com.gkuziel.mskprep.presentation.main
 
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gkuziel.mskprep.domain.usecase.GetCachedEvents
@@ -29,6 +30,7 @@ class MainViewModel @Inject constructor(
 
     fun loadUsers() {
         viewModelScope.launch {
+            Log.d("sffsd","ttrw")
             loadUsers.execute()
         }
     }
