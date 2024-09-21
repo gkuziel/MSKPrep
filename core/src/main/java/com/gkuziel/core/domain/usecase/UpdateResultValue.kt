@@ -9,7 +9,6 @@ class UpdateResultValue @Inject constructor(
     private val repository: Repository
 ) {
     suspend fun execute(eventId: String, id: String, value: Int) {
-
         repository.updateResult(eventId, id, value)
     }
 }

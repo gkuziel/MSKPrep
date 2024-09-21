@@ -24,10 +24,12 @@ class DetailsActivity : AppCompatActivity() {
 
     private val resultAdapter by lazy {
         ResultAdapter {
-            viewModel.setResultValue(
-                it.id,
-                (0..100).random()
-            )
+            if (isClickable()) {
+                viewModel.setResultValue(
+                    it.id,
+                    (0..100).random()
+                )
+            }
         }
     }
 
@@ -46,6 +48,7 @@ class DetailsActivity : AppCompatActivity() {
                 viewModel.event.collect { detailsUIState ->
                     detailsUIState.event?.let {
                         resultAdapter.setItems(it.results)
+                        updatedCountdownLabel()
                     }
                 }
             }
@@ -62,14 +65,26 @@ class DetailsActivity : AppCompatActivity() {
             )
 
             btnAddResult.setOnClickListener {
-                viewModel.addResult(
-                    UUID.randomUUID().toString(),
-                    "description",
-                    (0..100).random()
-                )
+                if (isClickable()) {
+                    viewModel.addResult(
+                        UUID.randomUUID().toString(),
+                        "description",
+                        (0..100).random()
+                    )
+                }
             }
         }
     }
+
+    private fun updatedCountdownLabel() {
+        binding.tvDecaysIn.text = if (isClickable()) {
+            "Decays in: " + viewModel.event.value.event?.timeLeftToDecay.toString()
+        } else {
+            "Decayed - read only"
+        }
+    }
+
+    private fun isClickable() = viewModel.event.value.event?.clickable ?: false
 
     companion object {
         fun start(

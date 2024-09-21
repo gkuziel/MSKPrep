@@ -14,7 +14,11 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,9 +35,10 @@ fun DetailsScreen(
     viewModel: DetailsViewModel = hiltViewModel(),
     eventId: String
 ) {
+    LaunchedEffect(Unit){
+        viewModel.setId(eventId)
+    }
     val uiSate = viewModel.event.collectAsState()
-
-    viewModel.setId(eventId)
 
     Column(
         modifier = Modifier
@@ -43,30 +48,48 @@ fun DetailsScreen(
         verticalArrangement = Arrangement.Top
     ) {
         Button(onClick = {
-            viewModel.addResult(
-                UUID.randomUUID().toString(),
-                "description",
-                (0..100).random()
-            )
+            if (isClickable(uiSate)) {
+                viewModel.addResult(
+                    UUID.randomUUID().toString(),
+                    "description",
+                    (0..100).random()
+                )
+            }
         }) {
             Text(text = "add random result")
         }
         Text(text = "Click the result to change the value (random)")
         Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = updatedCountdownLabel(uiSate)
+        )
+        Spacer(modifier = Modifier.height(8.dp))
         ResultList(
             uiSate.value.event
         ) {
-            onItemClicked(
-                viewModel,
-                it
-            )
+            if (isClickable(uiSate)) {
+                onItemClicked(
+                    viewModel,
+                    it
+                )
+            }
         }
     }
 }
 
+private fun updatedCountdownLabel(uiSate: State<DetailsUIState>): String {
+    return if (isClickable(uiSate)) {
+        "Decays in: " + uiSate.value.event?.timeLeftToDecay.toString()
+    } else {
+        "Decayed - read only"
+    }
+}
+
+private fun isClickable(uiSate: State<DetailsUIState>) = uiSate.value.event?.clickable == true
+
 private fun onItemClicked(
     viewModel: DetailsViewModel,
-    resultId: String
+    resultId: String,
 ) {
     viewModel.setResultValue(
         resultId,
@@ -88,7 +111,7 @@ fun ResultList(
             verticalArrangement = Arrangement.Top
         ) {
             Log.d("fdsfsdf", uIState.results.size.toString())
-            items(uIState!!.results) { event ->
+            items(uIState.results) { event ->
                 ItemResult(
                     event,
                     onItemClicked
