@@ -14,11 +14,11 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import javax.inject.Inject
 
-class FakeRemoteRepository @Inject constructor(
+class JSONRemoteRepository @Inject constructor(
     @ApplicationContext private val context: Context,
-) {
+) : RemoteRepository {
 
-    fun getEventsFlow(): Flow<List<Event>> {
+    override fun getEventsFlow(): Flow<List<Event>> {
         return flow {
             val jsonString = loadFile()
             val events = parse(jsonString)

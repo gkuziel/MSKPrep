@@ -1,4 +1,4 @@
-package com.gkuziel.core.data
+package com.gkuziel.core.updateservice
 
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow

@@ -2,17 +2,18 @@ package com.gkuziel.core.data
 
 import com.gkuziel.core.EventToMainStateUi
 import com.gkuziel.core.domain.EventRepository
+import com.gkuziel.core.updateservice.DynamicUpdate
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class EventDataRepository @Inject constructor(
     private val eventCache: EventCache,
-    private val fakeRemoteRepository: FakeRemoteRepository,
-    private val eventToMainStateUi: EventToMainStateUi, // tutaj?
+    private val remoteRepository: RemoteRepository,
+    private val eventToMainStateUi: EventToMainStateUi,
     private val dynamicUpdate: DynamicUpdate
 ) : EventRepository {
     override suspend fun loadUsers() {
-        fakeRemoteRepository.getEventsFlow()
+        remoteRepository.getEventsFlow()
             .map {
                 eventToMainStateUi.execute(it)
             }
@@ -38,7 +39,11 @@ class EventDataRepository @Inject constructor(
         resultId: String,
         value: Int
     ) {
-        eventCache.updateResultValue(eventId, resultId, value)
+        eventCache.updateResultValue(
+            eventId,
+            resultId,
+            value
+        )
     }
 
 

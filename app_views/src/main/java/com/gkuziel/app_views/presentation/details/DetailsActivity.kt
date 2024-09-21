@@ -14,7 +14,6 @@ import com.gkuziel.app_views.databinding.ActivityDetailBinding
 import com.gkuziel.core.presentation.details.DetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.util.UUID
 
 
 @AndroidEntryPoint
@@ -45,7 +44,6 @@ class DetailsActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-
                 viewModel.eventDetailsUIState.collect { detailsUIState ->
                     detailsUIState?.let {
                         resultAdapter.setItems(it.results)
