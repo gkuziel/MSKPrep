@@ -1,6 +1,7 @@
 package com.gkuziel.app_compose.composables
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -11,7 +12,8 @@ import com.gkuziel.core.presentation.details.ResultUi
 
 @Composable
 fun ItemResult(
-    result: ResultUi
+    result: ResultUi,
+    onItemClicked: (String) -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -19,6 +21,11 @@ fun ItemResult(
             .wrapContentHeight()
             .padding(8.dp)
             .background(Color(0xFFE8E1B3))
+            .clickable {
+                onItemClicked.invoke(
+                    result.id
+                )
+            }
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -70,5 +77,5 @@ fun PreviewResultLayout() {
             "manual",
             12
         )
-    )
+    ) {}
 }

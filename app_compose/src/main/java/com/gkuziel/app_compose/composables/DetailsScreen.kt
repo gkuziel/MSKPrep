@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.gkuziel.core.presentation.details.DetailsUIState
 import com.gkuziel.core.presentation.details.DetailsViewModel
 import com.gkuziel.core.presentation.main.EventUi
 import java.util.UUID
@@ -55,9 +56,22 @@ fun DetailsScreen(
         ResultList(
             uiSate.value.event
         ) {
-
+            onItemClicked(
+                viewModel,
+                uiSate.value
+            )
         }
     }
+}
+
+private fun onItemClicked(
+    viewModel: DetailsViewModel,
+    uiSate: DetailsUIState
+) {
+    viewModel.setResultValue(
+        uiSate.event?.id ?: "",
+        (0..100).random()
+    )
 }
 
 
@@ -77,7 +91,7 @@ fun ResultList(
             items(uIState!!.results) { event ->
                 ItemResult(
                     event,
-//                onItemClicked
+                    onItemClicked
                 )
             }
         }
