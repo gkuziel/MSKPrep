@@ -102,5 +102,5 @@ fun ResultList(
 @Preview(showBackground = true)
 @Composable
 fun PreviewDetailsScreen() {
-//    DetailsScreen {}
+    DetailsScreen(eventId = "id")
 }
