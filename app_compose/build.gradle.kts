@@ -70,18 +70,8 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
-
+    // new dependencies below
     implementation("com.google.dagger:hilt-android:2.51.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
-
-    implementation("androidx.activity:activity-compose:1.9.2")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.5")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
-
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.5")
-    kapt ("androidx.hilt:hilt-compiler:1.2.0")
 }
