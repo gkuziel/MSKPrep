@@ -1,4 +1,4 @@
-package com.gkuziel.app_compose.composables
+package com.gkuziel.app_compose.presentation.details
 
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement

@@ -1,4 +1,4 @@
-package com.gkuziel.app_compose.composables
+package com.gkuziel.app_compose.presentation.main
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

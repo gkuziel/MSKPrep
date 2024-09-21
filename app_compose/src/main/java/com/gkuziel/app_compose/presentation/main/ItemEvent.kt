@@ -1,4 +1,4 @@
-package com.gkuziel.app_compose.composables
+package com.gkuziel.app_compose.presentation.main
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

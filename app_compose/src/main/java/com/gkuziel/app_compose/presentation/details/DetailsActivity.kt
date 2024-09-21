@@ -1,4 +1,4 @@
-package com.gkuziel.app_compose
+package com.gkuziel.app_compose.presentation.details
 
 import android.content.Context
 import android.content.Intent
@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.gkuziel.app_compose.composables.DetailsScreen
 import com.gkuziel.app_compose.ui.theme.MSKTaskTheme
 import dagger.hilt.android.AndroidEntryPoint
 
