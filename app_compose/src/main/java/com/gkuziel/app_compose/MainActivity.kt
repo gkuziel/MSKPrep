@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import com.gkuziel.app_compose.composables.MainScreen
 import com.gkuziel.app_compose.ui.theme.MSKTaskTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,7 +23,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MainScreen()
+                    MainScreen {
+                        DetailsActivity.start(this, it)
+                    }
                 }
             }
         }

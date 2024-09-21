@@ -1,6 +1,7 @@
-package com.gkuziel.app_compose
+package com.gkuziel.app_compose.composables
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -11,11 +12,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.gkuziel.core.presentation.details.ResultUi
 import com.gkuziel.core.presentation.main.EventUi
 
 @Composable
-fun ItemEventLayout(
-    eventUi: EventUi
+fun ItemEvent(
+    eventUi: EventUi,
+    onItemClicked: (String) -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -23,6 +26,11 @@ fun ItemEventLayout(
             .wrapContentHeight()
             .padding(8.dp)
             .background(Color(0xFFD8D8D8))
+            .clickable {
+                if (eventUi.clickable) {
+                    onItemClicked(eventUi.id)
+                }
+            }
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -33,13 +41,15 @@ fun ItemEventLayout(
                     .weight(0.55f)
                     .padding(end = 8.dp)
             ) {
-                // ID Label and Value
-                LabeledText(label = "id:", value = eventUi.id)
-
-                // Description Label and Value
-                LabeledText(label = "desc:", value = eventUi.description, topPadding = 8.dp)
-
-                // Synchronized Label and Value
+                LabeledText(
+                    label = "id:",
+                    value = eventUi.id
+                )
+                LabeledText(
+                    label = "desc:",
+                    value = eventUi.description,
+                    topPadding = 8.dp
+                )
                 LabeledText(
                     label = "sync:",
                     value = eventUi.synchronized.toString(),
@@ -52,17 +62,15 @@ fun ItemEventLayout(
                     .weight(0.45f)
                     .padding(start = 8.dp)
             ) {
-                // Updated Label and Value
-                LabeledText(label = "updated:", value = eventUi.updated.toString())
-
-                // Validity Label and Value
+                LabeledText(
+                    label = "updated:",
+                    value = eventUi.updated.toString()
+                )
                 LabeledText(
                     label = "decays in:",
                     value = eventUi.timeLeftToDecay.toString(),
                     topPadding = 8.dp
                 )
-
-                // Results Label and Value
                 LabeledText(
                     label = "#results:",
                     value = eventUi.results.size.toString(),
@@ -74,7 +82,11 @@ fun ItemEventLayout(
 }
 
 @Composable
-fun LabeledText(label: String, value: String, topPadding: Dp = 0.dp) {
+fun LabeledText(
+    label: String,
+    value: String,
+    topPadding: Dp = 0.dp
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -87,7 +99,9 @@ fun LabeledText(label: String, value: String, topPadding: Dp = 0.dp) {
             fontSize = 14.sp,
             modifier = Modifier.weight(0.4f)
         )
-        Spacer(modifier = Modifier.width(8.dp))
+        Spacer(
+            modifier = Modifier.width(8.dp)
+        )
         Text(
             text = value,
             fontSize = 14.sp,
@@ -99,5 +113,18 @@ fun LabeledText(label: String, value: String, topPadding: Dp = 0.dp) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewItemLayout() {
-//    ItemEventLayout(null)
+    ItemEvent(
+        EventUi(
+            android.graphics.Color.RED,
+            false,
+            "id",
+            "describtion",
+            false,
+            2131231,
+            10,
+            10,
+            emptyList<ResultUi>().toMutableList()
+        ),
+        { }
+    )
 }

@@ -1,4 +1,4 @@
-package com.gkuziel.app_compose
+package com.gkuziel.app_compose.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -7,9 +7,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.gkuziel.core.presentation.details.ResultUi
 
 @Composable
-fun ItemResultLayout() {
+fun ItemResult(
+    result: ResultUi
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -26,12 +29,15 @@ fun ItemResultLayout() {
                     .weight(0.55f)
                     .padding(end = 8.dp)
             ) {
-                // ID Label and Value
-                LabeledText(label = "id:", value = "id")
-
-                // Description Label and Value
-                LabeledText(label = "desc:", value = "description", topPadding = 8.dp)
-
+                LabeledText(
+                    label = "id:",
+                    value = result.id
+                )
+                LabeledText(
+                    label = "desc:",
+                    value = result.description,
+                    topPadding = 8.dp
+                )
             }
 
             Column(
@@ -39,12 +45,15 @@ fun ItemResultLayout() {
                     .weight(0.45f)
                     .padding(start = 8.dp)
             ) {
-                // Updated Label and Value
-                LabeledText(label = "type:", value = "type")
-
-                // Validity Label and Value
-                LabeledText(label = "value:", value = "value", topPadding = 8.dp)
-
+                LabeledText(
+                    label = "type:",
+                    value = result.type
+                )
+                LabeledText(
+                    label = "value:",
+                    value = result.value.toString(),
+                    topPadding = 8.dp
+                )
             }
         }
     }
@@ -54,5 +63,12 @@ fun ItemResultLayout() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewResultLayout() {
-    ItemResultLayout()
+    ItemResult(
+        ResultUi(
+            "some_id",
+            "abcd",
+            "manual",
+            12
+        )
+    )
 }

@@ -1,4 +1,4 @@
-package com.gkuziel.app_compose
+package com.gkuziel.app_compose.composables
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,7 +25,8 @@ import com.gkuziel.core.presentation.main.UIState
 
 @Composable
 fun MainScreen(
-    viewModel: MainViewModel = hiltViewModel()
+    viewModel: MainViewModel = hiltViewModel(),
+    onItemClicked: (String) -> Unit
 ) {
     val uiSate = viewModel.events.collectAsState()
 
@@ -38,20 +39,24 @@ fun MainScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
-        // Reload Button
-        Button(onClick = { }) {
+        Button(
+            onClick = { }
+        ) {
             Text(text = "reload (TBD)")
         }
-
         Spacer(modifier = Modifier.height(8.dp))
-
-        // RecyclerView replacement with LazyColumn
-        EventList(uiSate.value)
+        EventList(
+            uiSate.value,
+            onItemClicked
+        )
     }
 }
 
 @Composable
-fun EventList(uIState: UIState) {
+fun EventList(
+    uIState: UIState,
+    onItemClicked: (String) -> Unit
+) {
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
@@ -59,7 +64,10 @@ fun EventList(uIState: UIState) {
         verticalArrangement = Arrangement.Top
     ) {
         items(uIState.events) { event ->
-            ItemEventLayout(event)
+            ItemEvent(
+                event,
+                onItemClicked
+            )
         }
     }
 }
@@ -68,5 +76,5 @@ fun EventList(uIState: UIState) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewMainScreen() {
-    MainScreen()
+    MainScreen {}
 }

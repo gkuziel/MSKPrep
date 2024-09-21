@@ -72,19 +72,22 @@ class DetailsActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun start(context: Context, id: String) {
-            val intent = Intent(
-                context,
-                DetailsActivity::class.java
-            )
-            intent.putExtras(
-                Bundle().also {
-                    it.putString("id", id)
+        fun start(
+            context: Context,
+            id: String
+        ) {
+            context.startActivity(
+                Intent(
+                    context,
+                    DetailsActivity::class.java
+                ).also {
+                    it.putExtras(
+                        Bundle().also {
+                            it.putString("id", id)
+                        }
+                    )
                 }
             )
-
-            context.startActivity(intent)
         }
     }
-
 }
