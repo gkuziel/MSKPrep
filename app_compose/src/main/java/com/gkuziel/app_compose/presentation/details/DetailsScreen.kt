@@ -17,16 +17,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.gkuziel.core.presentation.details.DetailsUIState
+import com.gkuziel.core.presentation.details.DetailsStateUI
 import com.gkuziel.core.presentation.details.DetailsViewModel
-import com.gkuziel.core.presentation.main.EventUi
+import com.gkuziel.core.presentation.main.EventUI
 import java.util.UUID
 
 
@@ -77,7 +75,7 @@ fun DetailsScreen(
     }
 }
 
-private fun updatedCountdownLabel(uiSate: State<DetailsUIState>): String {
+private fun updatedCountdownLabel(uiSate: State<DetailsStateUI>): String {
     return if (isClickable(uiSate)) {
         "Decays in: " + uiSate.value.event?.timeLeftToDecay.toString()
     } else {
@@ -85,7 +83,7 @@ private fun updatedCountdownLabel(uiSate: State<DetailsUIState>): String {
     }
 }
 
-private fun isClickable(uiSate: State<DetailsUIState>) = uiSate.value.event?.clickable == true
+private fun isClickable(uiSate: State<DetailsStateUI>) = uiSate.value.event?.clickable == true
 
 private fun onItemClicked(
     viewModel: DetailsViewModel,
@@ -100,7 +98,7 @@ private fun onItemClicked(
 
 @Composable
 fun ResultList(
-    uIState: EventUi?,
+    uIState: EventUI?,
     onItemClicked: (String) -> Unit
 ) {
     uIState?.let {

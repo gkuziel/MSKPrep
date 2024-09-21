@@ -3,11 +3,15 @@ package com.gkuziel.core.presentation.details
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.gkuziel.core.MainToDetailsUIMapper
 import com.gkuziel.core.domain.usecase.AddResultToCache
+import com.gkuziel.core.domain.usecase.GetCachedEventByID
 import com.gkuziel.core.domain.usecase.GetCachedEvents
 import com.gkuziel.core.domain.usecase.UpdateResultValue
+import com.gkuziel.core.presentation.main.MainStateUI
 import com.gkuziel.core.util.Util
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
@@ -21,23 +25,26 @@ class DetailsViewModel @Inject constructor(
     private val getCachedEvents: GetCachedEvents,
     private val addResultToCache: AddResultToCache,
     private val updateResultValue: UpdateResultValue,
+    private val getCachedEventByID: GetCachedEventByID,
+    private val mainToDetailsUIMapper: MainToDetailsUIMapper,
 ) : ViewModel() {
 
     private lateinit var eventId: String
 
-    val event: StateFlow<DetailsUIState> =
-        getCachedEvents.execute().map {
-            val event = it.events.first { it.id == eventId }
-            event.results.removeAll { it.type != "MANUAL" }
-            DetailsUIState(event, Util.check)
-        }.stateIn(
-            initialValue = DetailsUIState(),
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000L),
+    //    private var eventId: String? = null
+    val event: StateFlow<DetailsStateUI> = getCachedEvents.execute().map {
+        mainToDetailsUIMapper.execute(
+            it,
+            eventId
         )
+    }.stateIn(
+        initialValue = DetailsStateUI(),
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000L),
+    )
 
     fun setId(id: String) {
-        this.eventId = id
+        eventId = id
     }
 
     fun setResultValue(
@@ -45,7 +52,7 @@ class DetailsViewModel @Inject constructor(
         value: Int
     ) {
         viewModelScope.launch {
-            updateResultValue.execute(eventId, resultId, value)
+            updateResultValue.execute(eventId!!, resultId, value)
         }
     }
 
@@ -55,7 +62,7 @@ class DetailsViewModel @Inject constructor(
         value: Int
     ) {
         viewModelScope.launch {
-            addResultToCache.execute(this@DetailsViewModel.eventId, id, desc, value)
+            addResultToCache.execute(this@DetailsViewModel.eventId!!, id, desc, value)
         }
     }
 }

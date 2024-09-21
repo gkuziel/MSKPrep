@@ -21,7 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.gkuziel.core.presentation.main.MainViewModel
-import com.gkuziel.core.presentation.main.UIState
+import com.gkuziel.core.presentation.main.MainStateUI
 
 
 @Composable
@@ -57,7 +57,7 @@ fun MainScreen(
 
 @Composable
 fun EventList(
-    uIState: UIState,
+    uIMain: MainStateUI,
     onItemClicked: (String) -> Unit
 ) {
     LazyColumn(
@@ -66,7 +66,7 @@ fun EventList(
             .fillMaxHeight(),
         verticalArrangement = Arrangement.Top
     ) {
-        items(uIState.events) { event ->
+        items(uIMain.events) { event ->
             ItemEvent(
                 event,
                 onItemClicked

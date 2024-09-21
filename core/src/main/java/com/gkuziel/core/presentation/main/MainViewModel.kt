@@ -1,7 +1,6 @@
 package com.gkuziel.core.presentation.main
 
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gkuziel.core.domain.usecase.GetCachedEvents
@@ -20,10 +19,10 @@ class MainViewModel @Inject constructor(
     private val loadUsers: LoadUsers,
 ) : ViewModel() {
 
-    val events: StateFlow<UIState> =
+    val events: StateFlow<MainStateUI> =
         getCachedEvents.execute()
             .stateIn(
-                initialValue = UIState(),
+                initialValue = MainStateUI(),
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5000L),
             )

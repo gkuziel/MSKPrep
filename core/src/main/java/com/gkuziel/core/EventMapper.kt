@@ -1,20 +1,20 @@
 package com.gkuziel.core
 
 import android.graphics.Color
-import com.gkuziel.core.presentation.main.EventUi
-import com.gkuziel.core.presentation.details.ResultUi
+import com.gkuziel.core.presentation.main.EventUI
+import com.gkuziel.core.presentation.details.ResultUI
 import com.gkuziel.core.domain.Event
-import com.gkuziel.core.presentation.main.UIState
+import com.gkuziel.core.presentation.main.MainStateUI
 import com.gkuziel.core.util.Util
 import javax.inject.Inject
 
 class EventMapper @Inject constructor() {
 
-    fun execute(events: List<Event>): UIState {
+    fun execute(events: List<Event>): MainStateUI {
 //    fun execute(events: List<Event>): List<EventUi> {
-        return UIState(
+        return MainStateUI(
             events.map {
-                EventUi(
+                EventUI(
                     getFontColor(it),
                     !isDecayed(it),
                     it.id,
@@ -24,7 +24,7 @@ class EventMapper @Inject constructor() {
                     it.validity,
                     it.validity,
                     it.results.map {
-                        ResultUi(
+                        ResultUI(
                             it.id,
                             it.description,
                             it.type,

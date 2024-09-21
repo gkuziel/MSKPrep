@@ -2,7 +2,7 @@ package com.gkuziel.core.presentation.details
 
 
 
-data class ResultUi(
+data class ResultUI(
     val id: String,
     val description: String,
 //    val type: Type,

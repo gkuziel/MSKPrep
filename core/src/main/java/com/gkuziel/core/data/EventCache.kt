@@ -1,9 +1,9 @@
 package com.gkuziel.core.data
 
 import android.graphics.Color
-import com.gkuziel.core.presentation.details.ResultUi
-import com.gkuziel.core.presentation.main.EventUi
-import com.gkuziel.core.presentation.main.UIState
+import com.gkuziel.core.presentation.details.ResultUI
+import com.gkuziel.core.presentation.main.EventUI
+import com.gkuziel.core.presentation.main.MainStateUI
 import com.gkuziel.core.util.Util
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,10 +15,10 @@ import javax.inject.Singleton
 @Singleton
 class EventCache @Inject constructor() {
 
-    private val _cacheFlow = MutableStateFlow(UIState())
-    val cacheFlow: StateFlow<UIState> get() = _cacheFlow
+    private val _cacheFlow = MutableStateFlow(MainStateUI())
+    val cacheFlow: StateFlow<MainStateUI> get() = _cacheFlow
 
-    fun setList(list: UIState) {
+    fun setList(list: MainStateUI) {
         _cacheFlow.value = list
     }
 
@@ -47,9 +47,9 @@ class EventCache @Inject constructor() {
     }
 
 
-    private fun isDecayed(event: EventUi) = event.timeLeftToDecay == 0
+    private fun isDecayed(event: EventUI) = event.timeLeftToDecay == 0
 
-    private fun getFontColor(event: EventUi) = when {
+    private fun getFontColor(event: EventUI) = when {
         isDecayed(event) -> Color.RED
         event.updated != null -> Color.GREEN
         else -> Color.BLACK
@@ -64,7 +64,7 @@ class EventCache @Inject constructor() {
                 it.id == eventId
             }
             updatedEvent.results.add(
-                ResultUi(id, desc, "MANUAL", value)
+                ResultUI(id, desc, "MANUAL", value)
 
             )
 
@@ -77,7 +77,7 @@ class EventCache @Inject constructor() {
         }
     }
 
-    private fun EventUi.markUpdated() {
+    private fun EventUI.markUpdated() {
         updated = 100L
         fontColor = getFontColor(this)
         clickable = !isDecayed(this)

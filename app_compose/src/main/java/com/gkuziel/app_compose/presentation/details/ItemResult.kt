@@ -9,11 +9,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gkuziel.app_compose.presentation.common.LabeledText
-import com.gkuziel.core.presentation.details.ResultUi
+import com.gkuziel.core.presentation.details.ResultUI
 
 @Composable
 fun ItemResult(
-    result: ResultUi,
+    result: ResultUI,
     onItemClicked: (String) -> Unit
 ) {
     Box(
@@ -72,7 +72,7 @@ fun ItemResult(
 @Composable
 fun PreviewResultLayout() {
     ItemResult(
-        ResultUi(
+        ResultUI(
             "some_id",
             "abcd",
             "manual",

@@ -4,16 +4,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gkuziel.app_views.databinding.ItemEventBinding
-import com.gkuziel.core.presentation.main.EventUi
+import com.gkuziel.core.presentation.main.EventUI
 
 
 class EventAdapter(
-    private var items: List<EventUi> = emptyList(),
-    private val onItemClick: (EventUi) -> Unit
+    private var items: List<EventUI> = emptyList(),
+    private val onItemClick: (EventUI) -> Unit
 ) : RecyclerView.Adapter<EventAdapter.ItemViewHolder>() {
 
 
-    fun setItems(items: List<EventUi>) {
+    fun setItems(items: List<EventUI>) {
         this.items = items
         notifyDataSetChanged()
     }
