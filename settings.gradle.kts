@@ -13,6 +13,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "MSKPrep"
-include(":app")
- 
+rootProject.name = "MSKTask"
+include(":app_views")
+include(":core")
+include(":app_compose")
