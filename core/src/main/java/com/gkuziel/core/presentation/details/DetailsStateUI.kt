@@ -1,19 +1,10 @@
 package com.gkuziel.core.presentation.details
 
-import com.gkuziel.core.presentation.main.EventUI
-
 
 data class DetailsStateUI(
-    val event: EventUI? = null, // not required
-
-//    var editable: Boolean,             // needed on UI
-//    val id: String,                     // needed on UI
-//
-//
-//    var timeLeftToDecay: Int?,          // needed on UI
-//
-//
-//    val results: MutableList<ResultUI>, // needed on UI
-
+    var editable: Boolean,
+    val eventId: String,
+    var timeLeftToDecay: Int?,
+    val results: MutableList<ResultUI>,
     private val check: Int = 0
 )

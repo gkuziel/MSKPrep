@@ -1,26 +1,25 @@
 package com.gkuziel.core.data
 
 import android.util.Log
-import com.gkuziel.core.EventMapper
-import kotlinx.coroutines.flow.collect
+import com.gkuziel.core.EventToMainStateUi
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class Repository @Inject constructor(
     private val eventCache: EventCache,
     private val fakeRemoteRepository: FakeRemoteRepository,
-    private val eventMapper: EventMapper,
+    private val eventToMainStateUi: EventToMainStateUi, // tutaj?
     private val dynamicUpdate: DynamicUpdate
 ) {
     suspend fun loadUsers() {
         fakeRemoteRepository.getEventsFlow()
             .map {
-                eventMapper.execute(it)
+                eventToMainStateUi.execute(it)
             }
             .collect {
-                eventCache.setList(
-                    it
-                )
+                eventCache.setList(it)
+
+
 //                 not here! app?
                 dynamicUpdate.get {
                     findMaximalTimeToDecay()
@@ -28,6 +27,9 @@ class Repository @Inject constructor(
                     eventCache.tick()
                     Log.d("sfsfds", "tick")
                 }
+
+
+
             }
     }
 

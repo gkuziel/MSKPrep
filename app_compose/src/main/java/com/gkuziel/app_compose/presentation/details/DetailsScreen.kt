@@ -24,7 +24,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.gkuziel.core.presentation.details.DetailsStateUI
 import com.gkuziel.core.presentation.details.DetailsViewModel
-import com.gkuziel.core.presentation.main.EventUI
 import java.util.UUID
 
 
@@ -63,7 +62,7 @@ fun DetailsScreen(
         )
         Spacer(modifier = Modifier.height(8.dp))
         ResultList(
-            uiSate.value.event
+            uiSate.value
         ) {
             if (isClickable(uiSate)) {
                 onItemClicked(
@@ -75,15 +74,15 @@ fun DetailsScreen(
     }
 }
 
-private fun updatedCountdownLabel(uiSate: State<DetailsStateUI>): String {
+private fun updatedCountdownLabel(uiSate: State<DetailsStateUI?>): String {
     return if (isClickable(uiSate)) {
-        "Decays in: " + uiSate.value.event?.timeLeftToDecay.toString()
+        "Decays in: " + uiSate.value?.timeLeftToDecay.toString()
     } else {
         "Decayed - read only"
     }
 }
 
-private fun isClickable(uiSate: State<DetailsStateUI>) = uiSate.value.event?.clickable == true
+private fun isClickable(uiSate: State<DetailsStateUI?>) = uiSate.value?.editable == true
 
 private fun onItemClicked(
     viewModel: DetailsViewModel,
@@ -98,7 +97,7 @@ private fun onItemClicked(
 
 @Composable
 fun ResultList(
-    uIState: EventUI?,
+    uIState: DetailsStateUI?,
     onItemClicked: (String) -> Unit
 ) {
     uIState?.let {

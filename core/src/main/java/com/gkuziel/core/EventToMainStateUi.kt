@@ -8,10 +8,9 @@ import com.gkuziel.core.presentation.main.MainStateUI
 import com.gkuziel.core.util.Util
 import javax.inject.Inject
 
-class EventMapper @Inject constructor() {
+class EventToMainStateUi @Inject constructor() {
 
     fun execute(events: List<Event>): MainStateUI {
-//    fun execute(events: List<Event>): List<EventUi> {
         return MainStateUI(
             events.map {
                 EventUI(
