@@ -2,16 +2,17 @@ package com.gkuziel.core.data
 
 import android.util.Log
 import com.gkuziel.core.EventToMainStateUi
+import com.gkuziel.core.domain.EventRepository
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class Repository @Inject constructor(
+class EventDataRepository @Inject constructor(
     private val eventCache: EventCache,
     private val fakeRemoteRepository: FakeRemoteRepository,
     private val eventToMainStateUi: EventToMainStateUi, // tutaj?
     private val dynamicUpdate: DynamicUpdate
-) {
-    suspend fun loadUsers() {
+) : EventRepository {
+    override suspend fun loadUsers() {
         fakeRemoteRepository.getEventsFlow()
             .map {
                 eventToMainStateUi.execute(it)
@@ -33,15 +34,9 @@ class Repository @Inject constructor(
             }
     }
 
-    private fun findMaximalTimeToDecay(): Int {
-        return getCachedEvents().value.events.maxByOrNull {
-            it.timeLeftToDecay ?: 0
-        }?.timeLeftToDecay ?: 0
-    }
+    override fun getCachedEvents() = eventCache.cacheFlow
 
-    fun getCachedEvents() = eventCache.cacheFlow
-
-    suspend fun updateResult(
+    override suspend fun updateResult(
         eventId: String?,
         resultId: String,
         value: Int
@@ -49,7 +44,8 @@ class Repository @Inject constructor(
         eventCache.updateResultValue(eventId, resultId, value)
     }
 
-    suspend fun addResult(
+
+    override suspend fun addResult(
         eventId: String,
         id: String,
         desc: String,
@@ -57,4 +53,12 @@ class Repository @Inject constructor(
     ) {
         eventCache.addResult(eventId, id, desc, value)
     }
+
+
+    private fun findMaximalTimeToDecay(): Int {
+        return getCachedEvents().value.events.maxByOrNull {
+            it.timeLeftToDecay ?: 0
+        }?.timeLeftToDecay ?: 0
+    }
+
 }
