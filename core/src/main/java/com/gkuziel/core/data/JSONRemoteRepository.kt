@@ -4,6 +4,7 @@ import android.content.Context
 import com.gkuziel.core.R
 import com.gkuziel.core.domain.Event
 import com.google.gson.Gson
+import com.google.gson.JsonSyntaxException
 import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
@@ -16,24 +17,17 @@ import javax.inject.Inject
 
 class JSONRemoteRepository @Inject constructor(
     @ApplicationContext private val context: Context,
+    private val jsonParser: JSONParser
 ) : RemoteRepository {
 
     override fun getEventsFlow(): Flow<List<Event>> {
         return flow {
             val jsonString = loadFile()
-            val events = parse(jsonString)
+            val events = jsonParser.parse(jsonString)
             emit(events)
         }
     }
 
-    private suspend fun parse(jsonString: String): List<Event> {
-        return withContext(Dispatchers.Default) {
-            val gson = Gson()
-            val listType = object : TypeToken<List<Event>>() {}.type
-            val personList: List<Event> = gson.fromJson(jsonString, listType)
-            personList
-        }
-    }
 
     private suspend fun loadFile(): String {
         return withContext(Dispatchers.Default) {
