@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,7 +31,9 @@ fun MainScreen(
 ) {
     val uiSate = viewModel.events.collectAsState()
 
-    viewModel.loadUsers()
+    LaunchedEffect(Unit) {
+        viewModel.loadUsers()
+    }
 
     Column(
         modifier = Modifier
