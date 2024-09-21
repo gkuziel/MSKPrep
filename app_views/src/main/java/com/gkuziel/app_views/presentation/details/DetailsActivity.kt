@@ -22,10 +22,11 @@ class DetailsActivity : AppCompatActivity() {
 
     private val viewModel: DetailsViewModel by viewModels()
 
+
     private val resultAdapter by lazy {
         ResultAdapter {
             if (isClickable()) {
-                viewModel.setResultValue(
+                viewModel.updateResultValue(
                     it.id,
                     (0..100).random()
                 )
@@ -39,13 +40,13 @@ class DetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel.setId(intent.extras?.getString("id") ?: "")
+        viewModel.setEventId(extractIDFromIntent())
         initViews()
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
 
-                viewModel.event.collect { detailsUIState ->
+                viewModel.eventDetailsUIState.collect { detailsUIState ->
                     detailsUIState?.let {
                         resultAdapter.setItems(it.results)
                         updatedCountdownLabel()
@@ -66,8 +67,7 @@ class DetailsActivity : AppCompatActivity() {
 
             btnAddResult.setOnClickListener {
                 if (isClickable()) {
-                    viewModel.addResult(
-                        UUID.randomUUID().toString(),
+                    viewModel.addResultToEvent(
                         "description",
                         (0..100).random()
                     )
@@ -78,15 +78,19 @@ class DetailsActivity : AppCompatActivity() {
 
     private fun updatedCountdownLabel() {
         binding.tvDecaysIn.text = if (isClickable()) {
-            "Decays in: " + viewModel.event.value?.timeLeftToDecay.toString()
+            "Decays in: " + viewModel.eventDetailsUIState.value?.timeLeftToDecay.toString()
         } else {
             "Decayed - read only"
         }
     }
 
-    private fun isClickable() = viewModel.event.value?.editable ?: false
+    private fun isClickable() = viewModel.eventDetailsUIState.value?.editable ?: false
+
+    private fun extractIDFromIntent() = intent.extras?.getString(ID_EXTRA) ?: ""
 
     companion object {
+        private const val ID_EXTRA = "ID"
+
         fun start(
             context: Context,
             id: String
@@ -98,7 +102,7 @@ class DetailsActivity : AppCompatActivity() {
                 ).also {
                     it.putExtras(
                         Bundle().also {
-                            it.putString("id", id)
+                            it.putString(ID_EXTRA, id)
                         }
                     )
                 }

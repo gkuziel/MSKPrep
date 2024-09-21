@@ -10,12 +10,12 @@ class UpdateResultValue @Inject constructor(
 ) {
     suspend fun execute(
         eventId: String,
-        id: String,
+        resultId: String,
         value: Int
     ) {
         repository.updateResult(
             eventId,
-            id,
+            resultId,
             value
         )
     }

@@ -18,8 +18,8 @@ interface EventRepository {
 
     suspend fun addResult(
         eventId: String,
-        id: String,
-        desc: String,
+        resultId: String,
+        description: String,
         value: Int
     )
 }

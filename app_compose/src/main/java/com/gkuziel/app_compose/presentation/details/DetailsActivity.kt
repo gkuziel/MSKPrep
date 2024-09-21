@@ -25,7 +25,7 @@ class DetailsActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     DetailsScreen(
-                        eventId = intent.extras?.getString(ID_EXTRA)!!
+                        eventId = extractIDFromIntent()
                     )
                 }
             }
@@ -33,8 +33,11 @@ class DetailsActivity : ComponentActivity() {
     }
 
 
+    private fun extractIDFromIntent() = intent.extras?.getString(ID_EXTRA) ?: ""
+
     companion object {
         private const val ID_EXTRA = "ID"
+
         fun start(
             context: Context,
             id: String

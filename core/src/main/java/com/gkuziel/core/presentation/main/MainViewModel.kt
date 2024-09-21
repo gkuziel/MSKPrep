@@ -19,7 +19,7 @@ class MainViewModel @Inject constructor(
     private val loadUsers: LoadUsers,
 ) : ViewModel() {
 
-    val events: StateFlow<MainStateUI> =
+    val mainUIState: StateFlow<MainStateUI> =
         getCachedEvents.execute()
             .stateIn(
                 initialValue = MainStateUI(),

@@ -29,7 +29,7 @@ fun MainScreen(
     viewModel: MainViewModel = hiltViewModel(),
     onItemClicked: (String) -> Unit
 ) {
-    val uiSate = viewModel.events.collectAsState()
+    val uiSate = viewModel.mainUIState.collectAsState()
 
     LaunchedEffect(Unit) {
         viewModel.loadUsers()

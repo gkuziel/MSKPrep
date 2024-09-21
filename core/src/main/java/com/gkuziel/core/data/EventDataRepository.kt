@@ -1,6 +1,5 @@
 package com.gkuziel.core.data
 
-import android.util.Log
 import com.gkuziel.core.EventToMainStateUi
 import com.gkuziel.core.domain.EventRepository
 import kotlinx.coroutines.flow.map
@@ -23,12 +22,10 @@ class EventDataRepository @Inject constructor(
 
 //                 not here! app?
                 dynamicUpdate.get {
-                    findMaximalTimeToDecay()
+                    findMaxTimeToDecay()
                 }.collect {
                     eventCache.tick()
-                    Log.d("sfsfds", "tick")
                 }
-
 
 
             }
@@ -47,15 +44,20 @@ class EventDataRepository @Inject constructor(
 
     override suspend fun addResult(
         eventId: String,
-        id: String,
-        desc: String,
+        resultId: String,
+        description: String,
         value: Int
     ) {
-        eventCache.addResult(eventId, id, desc, value)
+        eventCache.addResult(
+            eventId,
+            resultId,
+            description,
+            value
+        )
     }
 
 
-    private fun findMaximalTimeToDecay(): Int {
+    private fun findMaxTimeToDecay(): Int {
         return getCachedEvents().value.events.maxByOrNull {
             it.timeLeftToDecay ?: 0
         }?.timeLeftToDecay ?: 0

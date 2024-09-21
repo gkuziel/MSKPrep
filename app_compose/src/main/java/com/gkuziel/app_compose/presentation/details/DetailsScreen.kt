@@ -32,10 +32,10 @@ fun DetailsScreen(
     viewModel: DetailsViewModel = hiltViewModel(),
     eventId: String
 ) {
-    LaunchedEffect(Unit){
-        viewModel.setId(eventId)
+    LaunchedEffect(Unit) {
+        viewModel.setEventId(eventId)
     }
-    val uiSate = viewModel.event.collectAsState()
+    val uiSate = viewModel.eventDetailsUIState.collectAsState()
 
     Column(
         modifier = Modifier
@@ -46,8 +46,7 @@ fun DetailsScreen(
     ) {
         Button(onClick = {
             if (isClickable(uiSate)) {
-                viewModel.addResult(
-                    UUID.randomUUID().toString(),
+                viewModel.addResultToEvent(
                     "description",
                     (0..100).random()
                 )
@@ -88,7 +87,7 @@ private fun onItemClicked(
     viewModel: DetailsViewModel,
     resultId: String,
 ) {
-    viewModel.setResultValue(
+    viewModel.updateResultValue(
         resultId,
         (0..100).random()
     )
@@ -107,7 +106,6 @@ fun ResultList(
                 .fillMaxHeight(),
             verticalArrangement = Arrangement.Top
         ) {
-            Log.d("fdsfsdf", uIState.results.size.toString())
             items(uIState.results) { event ->
                 ItemResult(
                     event,

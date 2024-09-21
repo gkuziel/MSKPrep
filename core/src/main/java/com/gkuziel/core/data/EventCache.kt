@@ -46,7 +46,6 @@ class EventCache @Inject constructor() {
         )
     }
 
-
     private fun isDecayed(event: EventUI) = event.timeLeftToDecay == 0
 
     private fun getFontColor(event: EventUI) = when {
