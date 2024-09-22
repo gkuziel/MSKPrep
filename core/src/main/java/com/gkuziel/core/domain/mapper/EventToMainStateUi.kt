@@ -1,10 +1,11 @@
-package com.gkuziel.core
+package com.gkuziel.core.domain.mapper
 
-import android.graphics.Color
+import com.gkuziel.core.domain.Event
 import com.gkuziel.core.presentation.main.EventUI
 import com.gkuziel.core.presentation.details.ResultUI
-import com.gkuziel.core.domain.Event
 import com.gkuziel.core.presentation.main.MainStateUI
+import com.gkuziel.core.presentation.updateClickable
+import com.gkuziel.core.presentation.updateFontColor
 import com.gkuziel.core.util.Util
 import javax.inject.Inject
 
@@ -14,15 +15,13 @@ class EventToMainStateUi @Inject constructor() {
         return MainStateUI(
             events.map {
                 EventUI(
-                    getFontColor(it),
-                    !isDecayed(it),
-                    it.id,
-                    it.description,
-                    it.synchronized,
-                    it.updated,
-                    it.validity,
-                    it.validity,
-                    it.results.map {
+                    id = it.id,
+                    description = it.description,
+                    synchronized = it.synchronized,
+                    updated = it.updated,
+                    timeLeftToDecay = it.validity,
+                    initValidity = it.validity,
+                    results = it.results.map {
                         ResultUI(
                             it.id,
                             it.description,
@@ -30,18 +29,12 @@ class EventToMainStateUi @Inject constructor() {
                             it.value
                         )
                     }.toMutableList(),
-                )
+                ).also {
+                    it.updateFontColor()
+                    it.updateClickable()
+                }
             },
             Util.check
         )
-    }
-
-
-    private fun isDecayed(event: Event) = event.validity == 0
-
-    private fun getFontColor(event: Event) = when {
-        isDecayed(event) -> Color.RED
-        event.updated != null -> Color.GREEN
-        else -> Color.BLACK
     }
 }

@@ -1,6 +1,6 @@
 package com.gkuziel.core.data
 
-import com.gkuziel.core.EventToMainStateUi
+import com.gkuziel.core.domain.mapper.EventToMainStateUi
 import com.gkuziel.core.domain.EventRepository
 import com.gkuziel.core.updateservice.DynamicUpdate
 import kotlinx.coroutines.flow.map
@@ -25,7 +25,7 @@ class EventDataRepository @Inject constructor(
                 dynamicUpdate.get {
                     findMaxTimeToDecay()
                 }.collect {
-                    eventCache.tick()
+                    eventCache.triggerCountdownUpdate()
                 }
 
 
@@ -45,7 +45,6 @@ class EventDataRepository @Inject constructor(
             value
         )
     }
-
 
     override suspend fun addResult(
         eventId: String,

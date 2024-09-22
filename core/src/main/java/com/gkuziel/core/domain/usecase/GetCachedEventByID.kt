@@ -1,7 +1,7 @@
 package com.gkuziel.core.domain.usecase
 
 
-import com.gkuziel.core.MainStateUIToDetailsStateUI
+import com.gkuziel.core.domain.mapper.MainStateUIToDetailsStateUI
 import com.gkuziel.core.domain.EventRepository
 import com.gkuziel.core.presentation.details.DetailsStateUI
 import kotlinx.coroutines.flow.Flow
