@@ -12,8 +12,8 @@ fun MainStateUI.decrementValidity() {
             it.initValidity != null
         }.forEach {
             if (it.timeLeftToDecay!! == 0) {
-                it.fontColor = getFontColor(it)
-                it.clickable = !updateClickable(it)
+                it.updateFontColor()
+                it.updateClickable()
             } else {
                 it.timeLeftToDecay = it.timeLeftToDecay!! - 1
             }
