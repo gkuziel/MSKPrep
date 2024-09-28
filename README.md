@@ -62,6 +62,11 @@ The project consists of 3 modules:
 
 also used: `Hilt`, `Flows`, `Coroutines`, `Gson`, `ViewModel`
 
+# Demo:
+<img src="https://github.com/user-attachments/assets/3ceb30f8-3b92-42d1-ae2e-efae5efac09c" width="300"/>
+<img src="https://github.com/user-attachments/assets/5c1912be-d59d-4076-b7f3-1c386bc54e35" width="300"/>
+
+
 # TODO:
 
 1. Add tests (UI, snapshot, unit)
