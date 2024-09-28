@@ -58,7 +58,7 @@ The solution is built using `Clean Architecture` principles combined with the `M
 The project consists of 3 modules:
 - `app_compose` - `Jetpack Compose` implementation of UI layer  
 - `app_views` - `Views` implementation of UI layer  
-- `core` - ViewModels and the remaining layers: domain + data
+- `core` - ViewModels and the remaining layers: domain + data (the data is exposed to the UI layer through the ViewModels flows)
 
 also used: `Hilt`, `Flows`, `Coroutines`, `Gson`, `ViewModel`
 
