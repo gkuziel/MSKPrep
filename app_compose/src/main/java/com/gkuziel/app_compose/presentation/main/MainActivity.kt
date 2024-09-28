@@ -8,7 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.gkuziel.app_compose.presentation.details.DetailsActivity
-import com.gkuziel.app_compose.ui.theme.MSKTaskTheme
+import com.gkuziel.app_compose.ui.theme.DualUIEventViewerTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
 
-            MSKTaskTheme {
+            DualUIEventViewerTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background

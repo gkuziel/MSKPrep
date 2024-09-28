@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">MSKTask</string>
+    <string name="app_name">DualUIEventViewer</string>
     <string name="title_activity_main_comp">MainCompActivity</string>
 </resources>

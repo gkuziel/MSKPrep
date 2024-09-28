@@ -1,8 +1,8 @@
-package com.gkuziel.app_views.di
+package com.gkuziel.app_compose.di
 
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class MSKApp : Application()
+class DualUIEventViewer : Application()

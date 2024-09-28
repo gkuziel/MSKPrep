@@ -10,7 +10,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.gkuziel.app_compose"
+        applicationId = "com.gkuziel.dualuieventviewer.app_compose"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

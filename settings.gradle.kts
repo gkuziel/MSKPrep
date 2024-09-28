@@ -13,7 +13,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "MSKTask"
+rootProject.name = "DualUIEventViewer"
 include(":app_views")
 include(":core")
 include(":app_compose")
