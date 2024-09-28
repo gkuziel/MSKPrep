@@ -10,7 +10,7 @@ data class EventUI(
     val id: String,                     // needed on UI
     var description: String,            // needed on UI
     var synchronized: Boolean = true,   // needed on UI
-    var updated: Long? = null,          // needed on UI
+    var updated: String? = null,          // needed on UI
     var timeLeftToDecay: Int?,          // needed on UI
     val initValidity: Int?,             // ???
     val results: MutableList<ResultUI>, // needed on UI

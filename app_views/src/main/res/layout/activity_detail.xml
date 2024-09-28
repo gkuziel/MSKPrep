@@ -4,23 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_background"
     tools:context="com.gkuziel.app_views.presentation.main.MainActivity">
 
     <LinearLayout
-        android:id="@+id/buttons"
-        android:layout_width="match_parent"
+        android:id="@+id/header"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_result_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="Result list:"
+            android:textSize="32sp" />
 
         <Button
             android:id="@+id/btn_add_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="add random result" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/container_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header">
 
         <TextView
             android:layout_width="wrap_content"
@@ -31,13 +55,8 @@
             android:id="@+id/tv_decays_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             tools:text="Decays in: 10" />
-
-<!--        <TextView-->
-<!--            android:id="@+id/tv_expires_in"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            tools:text="Expires in: 10" />-->
 
     </LinearLayout>
 
@@ -45,11 +64,10 @@
         android:id="@+id/rv_results"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttons"
+        app:layout_constraintTop_toBottomOf="@id/container_info"
         tools:itemCount="2"
         tools:listitem="@layout/item_result" />
 

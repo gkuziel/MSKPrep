@@ -2,14 +2,21 @@ package com.gkuziel.core.presentation
 
 import android.graphics.Color
 import com.gkuziel.core.presentation.main.EventUI
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 
 fun EventUI.markUpdated() {
-    updated = 100L
+    updated = getUpdatedForDisplay(Date().time)
     synchronized = false
     timeLeftToDecay = initValidity
     updateFontColor()
     updateClickable()
+}
+
+fun getUpdatedForDisplay(updated: Long?) = updated?.let {
+    SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(updated)
 }
 
 fun EventUI.updateFontColor() {

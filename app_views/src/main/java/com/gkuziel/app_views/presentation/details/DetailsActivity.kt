@@ -11,7 +11,9 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gkuziel.app_views.databinding.ActivityDetailBinding
+import com.gkuziel.core.presentation.details.DetailsStateUI
 import com.gkuziel.core.presentation.details.DetailsViewModel
+import com.gkuziel.core.presentation.getDecayInfoLabel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -75,11 +77,7 @@ class DetailsActivity : AppCompatActivity() {
     }
 
     private fun updatedCountdownLabel() {
-        binding.tvDecaysIn.text = if (isClickable()) {
-            "Decays in: " + viewModel.eventDetailsState.value?.timeLeftToDecay.toString()
-        } else {
-            "Decayed - read only"
-        }
+        binding.tvDecaysIn.text = viewModel.eventDetailsState.value?.getDecayInfoLabel()
     }
 
     private fun isClickable() = viewModel.eventDetailsState.value?.editable ?: false

@@ -40,7 +40,7 @@ class EventAdapter(
             tvId.text = item.id
             tvDescription.text = item.description
             tvSynchronized.text = item.synchronized.toString()
-            tvUpdated.text = item.updated.toString()
+            tvUpdated.text = item.updated
             tvValidity.text = item.timeLeftToDecay.toString()
             tvResults.text = item.results.size.toString()
             setFontColor(this, item.fontColor)
@@ -51,7 +51,6 @@ class EventAdapter(
             }
         }
     }
-
 
     private fun setFontColor(binding: ItemEventBinding, color: Int) {
         binding.apply {

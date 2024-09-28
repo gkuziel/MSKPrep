@@ -3,6 +3,7 @@ package com.gkuziel.core.domain.mapper
 import com.gkuziel.core.domain.Event
 import com.gkuziel.core.presentation.main.EventUI
 import com.gkuziel.core.presentation.details.ResultUI
+import com.gkuziel.core.presentation.getUpdatedForDisplay
 import com.gkuziel.core.presentation.main.MainStateUI
 import com.gkuziel.core.presentation.updateClickable
 import com.gkuziel.core.presentation.updateFontColor
@@ -18,7 +19,7 @@ class EventToMainStateUi @Inject constructor() {
                     id = it.id,
                     description = it.description,
                     synchronized = it.synchronized,
-                    updated = it.updated,
+                    updated = getUpdatedForDisplay(it.updated),
                     timeLeftToDecay = it.validity,
                     initValidity = it.validity,
                     results = it.results.map {
