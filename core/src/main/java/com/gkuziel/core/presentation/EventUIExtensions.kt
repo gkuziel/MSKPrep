@@ -28,8 +28,8 @@ fun EventUI.updateClickable() {
 }
 
 private fun getFontColor(event: EventUI) = when {
-    updateClickable(event) -> Color.RED
-    event.updated != null -> Color.GREEN
+    updateClickable(event) -> Color.parseColor("#ffC34D4D")
+    event.updated != null -> Color.parseColor("#ff168752")
     else -> Color.BLACK
 }
 
