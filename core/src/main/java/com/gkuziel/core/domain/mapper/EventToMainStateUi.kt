@@ -1,6 +1,6 @@
 package com.gkuziel.core.domain.mapper
 
-import com.gkuziel.core.domain.Event
+import com.gkuziel.core.data.model.Event
 import com.gkuziel.core.presentation.main.EventUI
 import com.gkuziel.core.presentation.details.ResultUI
 import com.gkuziel.core.presentation.main.MainStateUI
@@ -20,7 +20,7 @@ class EventToMainStateUi @Inject constructor() {
                     synchronized = it.synchronized,
                     updated = it.updated,
                     timeLeftToDecay = it.validity,
-                    initValidity = it.validity,
+                    initValidity = it.initValidity,
                     results = it.results.map {
                         ResultUI(
                             it.id,

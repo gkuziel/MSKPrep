@@ -1,4 +1,4 @@
-package com.gkuziel.core.domain
+package com.gkuziel.core.data.model
 
 import com.google.gson.annotations.SerializedName
 

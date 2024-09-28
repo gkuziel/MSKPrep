@@ -1,6 +1,6 @@
 package com.gkuziel.core.data
 
-import com.gkuziel.core.domain.Event
+import com.gkuziel.core.data.model.Event
 import kotlinx.coroutines.flow.Flow
 
 interface RemoteRepository {

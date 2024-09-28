@@ -2,10 +2,7 @@ package com.gkuziel.core.data
 
 import android.content.Context
 import com.gkuziel.core.R
-import com.gkuziel.core.domain.Event
-import com.google.gson.Gson
-import com.google.gson.JsonSyntaxException
-import com.google.gson.reflect.TypeToken
+import com.gkuziel.core.data.model.Event
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

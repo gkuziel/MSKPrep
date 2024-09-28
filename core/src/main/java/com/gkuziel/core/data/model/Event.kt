@@ -1,4 +1,4 @@
-package com.gkuziel.core.domain
+package com.gkuziel.core.data.model
 
 import com.google.gson.annotations.SerializedName
 
@@ -9,6 +9,7 @@ data class Event(
     @SerializedName("sync")
     val synchronized: Boolean = true,
     val updated: Long? = null,
-    val validity: Int?,
+    var validity: Int?,
+    val initValidity: Int?,
     val results: MutableList<Result>
 )
