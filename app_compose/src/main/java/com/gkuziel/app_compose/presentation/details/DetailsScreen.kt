@@ -2,15 +2,13 @@ package com.gkuziel.app_compose.presentation.details
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -21,8 +19,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.gkuziel.app_compose.presentation.common.Header
 import com.gkuziel.core.presentation.details.DetailsStateUI
 import com.gkuziel.core.presentation.details.DetailsViewModel
+import com.gkuziel.core.presentation.getDecayInfoLabel
 
 
 @Composable
@@ -37,30 +37,21 @@ fun DetailsScreen(
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(8.dp),
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
-        Button(onClick = {
+
+        Header("Result list:", "add random result") {
             if (isClickable(uiSate)) {
                 viewModel.addResultToEvent(
                     "description",
                     (0..100).random()
                 )
             }
-        }) {
-            Text(text = "add random result")
         }
-        Text(text = "Click the result to change the value (random)")
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = updatedCountdownLabel(uiSate)
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        ResultList(
-            uiSate.value
-        ) {
+        InfoContainer(text = uiSate.value?.getDecayInfoLabel() ?: "")
+        ResultList(uiSate.value) {
             if (isClickable(uiSate)) {
                 onItemClicked(
                     viewModel,
@@ -68,14 +59,6 @@ fun DetailsScreen(
                 )
             }
         }
-    }
-}
-
-private fun updatedCountdownLabel(uiSate: State<DetailsStateUI?>): String {
-    return if (isClickable(uiSate)) {
-        "Decays in: " + uiSate.value?.timeLeftToDecay.toString()
-    } else {
-        "Decayed - read only"
     }
 }
 
@@ -91,6 +74,28 @@ private fun onItemClicked(
     )
 }
 
+@Composable
+fun InfoContainer(text: String) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 8.dp)
+            .padding(bottom = 8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = "Click the result to change the value (random)",
+            modifier = Modifier.wrapContentWidth()
+        )
+
+        Text(
+            text = text,
+            modifier = Modifier
+                .padding(top = 16.dp)
+                .wrapContentWidth()
+        )
+    }
+}
 
 @Composable
 fun ResultList(
@@ -113,7 +118,6 @@ fun ResultList(
         }
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable

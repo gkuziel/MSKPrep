@@ -11,11 +11,13 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import android.graphics.Color.*
+import androidx.compose.ui.text.font.FontWeight
 
 @Composable
 fun LabeledText(
     label: String,
     value: String,
+    labelWidth: Dp,
     valueColor: Int = BLACK,
     topPadding: Dp = 0.dp
 ) {
@@ -29,7 +31,8 @@ fun LabeledText(
         Text(
             text = label,
             fontSize = 14.sp,
-            modifier = Modifier.weight(0.4f)
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.width(labelWidth)
         )
         Spacer(
             modifier = Modifier.width(8.dp)
@@ -49,6 +52,7 @@ fun PreviewLabeledText() {
     LabeledText(
         label = "label",
         value = "value",
+        labelWidth = 48.dp,
         valueColor = BLACK
     )
 }
