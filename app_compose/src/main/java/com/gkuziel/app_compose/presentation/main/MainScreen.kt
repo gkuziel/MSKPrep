@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.gkuziel.app_compose.presentation.common.Header
 import com.gkuziel.app_compose.presentation.details.DetailsScreenParams
 import com.gkuziel.core.presentation.main.MainViewModel
@@ -72,8 +73,10 @@ fun EventList(
 @Serializable
 object MainScreenParams
 
-//@Preview(showBackground = true)
-//@Composable
-//fun PreviewMainScreen() {
-//    MainScreen {}
-//}
+@Preview(showBackground = true)
+@Composable
+fun PreviewMainScreen() {
+    MainScreen(
+        navController = rememberNavController(),
+    )
+}
