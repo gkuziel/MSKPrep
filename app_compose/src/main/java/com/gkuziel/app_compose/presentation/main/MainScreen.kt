@@ -30,10 +30,6 @@ fun MainScreen(
 ) {
     val uiSate = viewModel.mainState.collectAsState()
 
-    LaunchedEffect(Unit) {
-        viewModel.loadEvents()
-    }
-
     Column(
         modifier = Modifier
             .fillMaxSize(),

@@ -33,9 +33,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         initViews()
 
-
-        viewModel.loadEvents()
-
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.mainState.collect { eventsUi ->

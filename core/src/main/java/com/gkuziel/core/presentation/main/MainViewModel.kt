@@ -15,10 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val getCachedEvents: GetCachedEvents,
-    private val loadEvents: LoadEvents,
+    private val getCachedEvents: GetCachedEvents
 ) : ViewModel() {
-    private var eventsLoaded = false
 
     val mainState: StateFlow<MainStateUI> =
         getCachedEvents.execute()
@@ -28,14 +26,6 @@ class MainViewModel @Inject constructor(
                 started = SharingStarted.WhileSubscribed(5000L),
             )
 
-    fun loadEvents() {
-        if (!eventsLoaded) {
-            viewModelScope.launch {
-                loadEvents.execute()
-            }
-            eventsLoaded = true
-        }
-    }
 }
 
 
