@@ -19,19 +19,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.gkuziel.app_compose.presentation.common.Header
 import com.gkuziel.core.presentation.details.DetailsStateUI
 import com.gkuziel.core.presentation.details.DetailsViewModel
 import com.gkuziel.core.presentation.getDecayInfoLabel
+import kotlinx.serialization.Serializable
 
 
 @Composable
 fun DetailsScreen(
+    navController: NavController,
+    args: DetailsScreenParams,
     viewModel: DetailsViewModel = hiltViewModel(),
-    eventId: String
 ) {
     LaunchedEffect(Unit) {
-        viewModel.setEventId(eventId)
+        viewModel.setEventId(args.eventId)
     }
     val uiSate = viewModel.eventDetailsState.collectAsState()
 
@@ -119,8 +122,16 @@ fun ResultList(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun PreviewDetailsScreen() {
-    DetailsScreen(eventId = "id")
-}
+@Serializable
+data class DetailsScreenParams(
+    val eventId: String,
+)
+
+//
+//@Preview(showBackground = true)
+//@Composable
+//fun PreviewDetailsScreen() {
+//    DetailsScreen(
+//        navController = NavController(),
+//        args = DetailsScreenParams(eventId = "id"))
+//}
