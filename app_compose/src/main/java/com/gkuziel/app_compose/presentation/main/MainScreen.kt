@@ -31,7 +31,7 @@ fun MainScreen(
     val uiSate = viewModel.mainState.collectAsState()
 
     LaunchedEffect(Unit) {
-        viewModel.loadUsers()
+        viewModel.loadEvents()
     }
 
     Column(

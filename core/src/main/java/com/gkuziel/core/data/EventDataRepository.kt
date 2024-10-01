@@ -12,7 +12,7 @@ class EventDataRepository @Inject constructor(
     private val eventToMainStateUi: EventToMainStateUi,
     private val dynamicUpdate: DynamicUpdate
 ) : EventRepository {
-    override suspend fun loadUsers() {
+    override suspend fun loadEvents() {
         remoteRepository.getEventsFlow()
             .map {
                 eventToMainStateUi.execute(it)

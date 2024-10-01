@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface EventRepository {
 
-    suspend fun loadUsers()
+    suspend fun loadEvents()
 
     fun getCachedEvents(): Flow<MainStateUI>
 

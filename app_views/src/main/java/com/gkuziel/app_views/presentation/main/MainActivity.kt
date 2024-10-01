@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         initViews()
 
 
-        viewModel.loadUsers()
+        viewModel.loadEvents()
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
