@@ -29,8 +29,11 @@ class MainViewModel @Inject constructor(
             )
 
     fun loadEvents() {
-        viewModelScope.launch {
-            loadEvents.execute()
+        if (!eventsLoaded) {
+            viewModelScope.launch {
+                loadEvents.execute()
+            }
+            eventsLoaded = true
         }
     }
 }
