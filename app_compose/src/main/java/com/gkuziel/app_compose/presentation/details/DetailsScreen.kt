@@ -14,24 +14,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.gkuziel.app_compose.presentation.common.Header
 import com.gkuziel.core.presentation.details.DetailsStateUI
 import com.gkuziel.core.presentation.details.DetailsViewModel
 import com.gkuziel.core.presentation.getDecayInfoLabel
+import kotlinx.serialization.Serializable
 
 
 @Composable
 fun DetailsScreen(
+    navController: NavController,
+    args: DetailsScreenParams,
     viewModel: DetailsViewModel = hiltViewModel(),
-    eventId: String
 ) {
     LaunchedEffect(Unit) {
-        viewModel.setEventId(eventId)
+        viewModel.setEventId(args.eventId)
     }
     val uiSate = viewModel.eventDetailsState.collectAsState()
 
@@ -119,8 +124,17 @@ fun ResultList(
     }
 }
 
+@Serializable
+data class DetailsScreenParams(
+    val eventId: String,
+)
+
+
 @Preview(showBackground = true)
 @Composable
 fun PreviewDetailsScreen() {
-    DetailsScreen(eventId = "id")
+    DetailsScreen(
+        navController = rememberNavController(),
+        args = DetailsScreenParams(eventId = "id")
+    )
 }

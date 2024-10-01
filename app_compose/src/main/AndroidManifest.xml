@@ -19,10 +19,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".presentation.details.DetailsActivity"
-            android:exported="true"
-            android:theme="@style/Theme.DualUIEventViewer" />
     </application>
 
 </manifest>

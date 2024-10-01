@@ -4,7 +4,7 @@ package com.gkuziel.core.presentation.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gkuziel.core.domain.usecase.GetCachedEvents
-import com.gkuziel.core.domain.usecase.LoadUsers
+import com.gkuziel.core.domain.usecase.LoadEvents
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -16,8 +16,9 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getCachedEvents: GetCachedEvents,
-    private val loadUsers: LoadUsers,
+    private val loadEvents: LoadEvents,
 ) : ViewModel() {
+    private var eventsLoaded = false
 
     val mainState: StateFlow<MainStateUI> =
         getCachedEvents.execute()
@@ -27,9 +28,12 @@ class MainViewModel @Inject constructor(
                 started = SharingStarted.WhileSubscribed(5000L),
             )
 
-    fun loadUsers() {
-        viewModelScope.launch {
-            loadUsers.execute()
+    fun loadEvents() {
+        if (!eventsLoaded) {
+            viewModelScope.launch {
+                loadEvents.execute()
+            }
+            eventsLoaded = true
         }
     }
 }

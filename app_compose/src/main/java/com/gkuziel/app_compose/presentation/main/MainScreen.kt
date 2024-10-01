@@ -14,20 +14,24 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.gkuziel.app_compose.presentation.common.Header
+import com.gkuziel.app_compose.presentation.details.DetailsScreenParams
 import com.gkuziel.core.presentation.main.MainViewModel
 import com.gkuziel.core.presentation.main.MainStateUI
+import kotlinx.serialization.Serializable
 
 
 @Composable
 fun MainScreen(
+    navController: NavController,
     viewModel: MainViewModel = hiltViewModel(),
-    onItemClicked: (String) -> Unit
 ) {
     val uiSate = viewModel.mainState.collectAsState()
 
     LaunchedEffect(Unit) {
-        viewModel.loadUsers()
+        viewModel.loadEvents()
     }
 
     Column(
@@ -38,9 +42,10 @@ fun MainScreen(
     ) {
         Header("Event list:", "reload") {}
         EventList(
-            uiSate.value,
-            onItemClicked
-        )
+            uiSate.value
+        ) { id ->
+            navController.navigate(DetailsScreenParams(id))
+        }
     }
 }
 
@@ -64,8 +69,14 @@ fun EventList(
     }
 }
 
+
+@Serializable
+object MainScreenParams
+
 @Preview(showBackground = true)
 @Composable
 fun PreviewMainScreen() {
-    MainScreen {}
+    MainScreen(
+        navController = rememberNavController(),
+    )
 }
